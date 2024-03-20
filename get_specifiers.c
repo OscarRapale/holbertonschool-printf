@@ -27,11 +27,13 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
+			int valid_format = 0;
 			for (i = 0; formats[i].specifier; i++)
 			{
 				if (*format == *(formats[i].specifier))
 				{
 					formats[i].handler(args, &count);
+					valid_format = 1;
 					break;
 				}
 			}
@@ -39,6 +41,12 @@ int _printf(const char *format, ...)
 			{
 				putchar('%');
 				count++;
+			}
+			else if (!valid_format)
+			{
+				putchar('%');
+				putchar(*format);
+				count += 2;
 			}
 		}
 		else
