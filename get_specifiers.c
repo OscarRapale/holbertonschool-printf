@@ -51,13 +51,21 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			if (*format != '%')
+			if (*format != '\0')
 			{
-				putchar('%');
-				if (!handle_format_specifier(*format, args, &count, formats))
+				if (*format == '%')
 				{
-					putchar(*format);
+					putchar('%');
 					count++;
+				}
+				else
+				{
+					if (!handle_format_specifier(*format, args, &count, formats))
+					{
+						putchar('%');
+						putchar(*format);
+						count++;
+					}
 				}
 			}
 			else
