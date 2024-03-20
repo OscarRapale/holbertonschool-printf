@@ -1,4 +1,4 @@
-# holbertonschool Printf Team Project
+# Holbertonschool Printf Team Project
 
 ## Description
 This team project handles the printf function as part of the first trimester learning C.
