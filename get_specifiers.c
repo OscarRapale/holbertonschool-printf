@@ -3,6 +3,31 @@
 #include "main.h"
 
 /**
+ * handle_format_specifier - handle a single format specifier
+ * @specifier: the format specifier character
+ * @args: list of arguments
+ * @count: character counter
+ * @formats: array of format_t structures
+ *
+ * Return: 1 if the specifier was handled, 0 otherwise
+ */
+static int handle_format_specifier(char specifier, va_list args
+									, int *count, format_t *formats)
+{
+	int i;
+
+	for (i = 0; formats[i].specifier != NULL; i++)
+	{
+		if (specifier == *(formats[i].specifier))
+		{
+			formats[i].handler(args, count);
+			return (1);
+		}
+	}
+	return (0);
+}
+
+/**
  * _printf - function to print different format specifiers
  * @format: the format given by the user
  *
@@ -19,7 +44,6 @@ int _printf(const char *format, ...)
 	};
 	va_list args;
 	int count = 0;
-	int i;
 
 	va_start(args, format);
 	while (*format)
@@ -27,26 +51,15 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			int valid_format = 0;
-			for (i = 0; formats[i].specifier; i++)
+			if (!handle_format_specifier(*format, args, &count, formats))
 			{
-				if (*format == *(formats[i].specifier))
+				if (*format != '%')
 				{
-					formats[i].handler(args, &count);
-					valid_format = 1;
-					break;
+					putchar('%');
+					count++;
 				}
-			}
-			if (*format == '%')
-			{
-				putchar('%');
-				count++;
-			}
-			else if (!valid_format)
-			{
-				putchar('%');
 				putchar(*format);
-				count += 2;
+				count++;
 			}
 		}
 		else
