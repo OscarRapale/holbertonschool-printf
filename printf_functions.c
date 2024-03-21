@@ -57,3 +57,36 @@ void print_int(va_list args, int *count)
 	}
 }
 
+/**
+ * print_binary- prints the binary representation
+ * of a integer, handles %b
+ *
+ * @args: list og arguments
+ * @count: character counter
+ *
+ */
+void print_binary(va_list args, int *count)
+{
+	unsigned int n = va_arg(args, unsigned int);
+	char buffer[33];
+	int i;
+
+	if (n == 0)
+	{
+		putchar('0');
+		(*count)++;
+		return;
+	}
+	for (i = 31; i >= 0; i--)
+	{
+		buffer[i] = (n & 1) ? '1' : '0';
+		n >>= 1;
+	}
+	for (i = 0; buffer[i] == '0'; i++)
+		;
+	for (; i < 32; i++)
+	{
+		putchar(buffer[i]);
+		(*count)++;
+	}
+}
