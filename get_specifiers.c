@@ -56,6 +56,10 @@ int _printf(const char *format, ...)
 				putchar('%');
 				count++;
 			}
+			else if (*format == '\0')
+			{
+				return (-1);
+			}
 			else
 			{
 				if (!handle_format_specifier(*format, args, &count, formats))
