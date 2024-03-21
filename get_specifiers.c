@@ -28,6 +28,21 @@ static int handle_format_specifier(char specifier, va_list args,
 }
 
 /**
+ * print_and_increment_count - Helper function to print character
+ * and increment count
+ * @c: format given by the user
+ * @count: counter of characters
+ *
+ * Return: void
+ */
+
+static void print_and_increment_count(char c, int *count)
+{
+	putchar(c);
+	(*count)++;
+}
+
+/**
  * _printf - function to print different format specifiers
  * @format: the format given by the user
  *
@@ -53,8 +68,7 @@ int _printf(const char *format, ...)
 			format++;
 			if (*format == '%')
 			{
-				putchar('%');
-				count++;
+				print_and_increment_count('%', &count);
 			}
 			else if (*format == '\0')
 			{
@@ -64,17 +78,14 @@ int _printf(const char *format, ...)
 			{
 				if (!handle_format_specifier(*format, args, &count, formats))
 				{
-					putchar('%');
-					putchar(*format);
-					count += 2;
+					print_and_increment_count('%', &count);
+					print_and_increment_count(*format, &count);
 				}
 			}
 		}
 		else
-		{
-			putchar(*format);
-			count++;
-		}
+		print_and_increment_count(*format, &count);
+
 		format++;
 	}
 	va_end(args);
