@@ -28,6 +28,39 @@ static int handle_format_specifier(char specifier, va_list args
 }
 
 /**
+ * print_percentage - print '%' character
+ * @count: character counter
+ */
+static void print_percentage(int *count)
+{
+	putchar('%');
+	(*count)++;
+}
+
+/**
+ * print_character - print a single character
+ * @ch: the character to print
+ * @count: character counter
+ */
+static void print_character(char ch, int *count)
+{
+	putchar(ch);
+	(*count)++;
+}
+
+/**
+ * handle_invalid_format - handle invalid format specifier
+ * @format_char: the invalid format character
+ * @count: character counter
+ */
+static void handle_invalid_format(char format_char, int *count)
+{
+	putchar('%');
+	putchar(format_char);
+	(*count) += 2;
+}
+
+/**
  * _printf - function to print different format specifiers
  * @format: the format given by the user
  *
@@ -55,30 +88,22 @@ int _printf(const char *format, ...)
 			{
 				if (*format == '%')
 				{
-					putchar('%');
-					count++;
+					print_percentage(&count);
+				}
+				else if (*(format + 1) == '\0')
+				{
 				}
 				else
 				{
 					if (!handle_format_specifier(*format, args, &count, formats))
 					{
-						putchar('%');
-						putchar(*format);
-						count++;
+						handle_invalid_format(*format, &count);
 					}
 				}
 			}
-			else
-			{
-				putchar('%');
-				count++;
-			}
 		}
 		else
-		{
-			putchar(*format);
-			count++;
-		}
+		print_character(*format, &count);
 		format++;
 	}
 	va_end(args);
