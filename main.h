@@ -20,6 +20,11 @@ void print_char(va_list args, int *count);
 void print_string(va_list args, int *count);
 void print_int(va_list args, int *count);
 void print_binary(va_list args, int *count);
+void print_unsigned(va_list args, int *count);
+void print_octal(va_list args, int *count);
+void print_hex(va_list args, int *count);
+void print_HEX(va_list args, int *count);
+
 int _printf(const char *format, ...);
 
 format_t *get_formats(void);

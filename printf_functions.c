@@ -7,6 +7,7 @@
  * @args: list of arguments
  * @count: character counter
  *
+ * Return: void
  */
 void print_char(va_list args, int *count)
 {
@@ -21,6 +22,7 @@ void print_char(va_list args, int *count)
  * @args: list of arguments
  * @count: character counter
  *
+ * Return: void
  */
 void print_string(va_list args, int *count)
 {
@@ -39,8 +41,9 @@ void print_string(va_list args, int *count)
 /**
  * print_int - prints an integer, handles %d and %i
  * @args: list of arguments
- * @count: character counter
+ * @count: character countet
  *
+ * Return void
  */
 void print_int(va_list args, int *count)
 {
@@ -60,10 +63,10 @@ void print_int(va_list args, int *count)
 /**
  * print_binary- prints the binary representation
  * of a integer, handles %b
- *
  * @args: list og arguments
  * @count: character counter
  *
+ * Return void
  */
 void print_binary(va_list args, int *count)
 {
@@ -90,3 +93,4 @@ void print_binary(va_list args, int *count)
 		(*count)++;
 	}
 }
+
